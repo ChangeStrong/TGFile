@@ -765,19 +765,19 @@ public class TGFolderModel: TGFileBaseModel {
         NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: TGFolderModel.kNotiChangeCoverOfFolder), object: self.getUrl().path)
     }
     
-//    override func toDelete(_ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void) {
-//                //将所有的电子书文件名字记录--用来删除
-//                for item in self.files {
-//                    if item.fileSubType == .eBook {
-//                        let file:TGFileModel = item as! TGFileModel;
-//                        //删除epub缓存文件
-//                        file.toDeleteEbookConfigFile()
-//                    }
-//                }
-//
-//                //删除本文件夹
-//                 super.toDelete(completion)
-//    }
+    override func toDelete(_ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void) {
+                //将所有的电子书文件名字记录--用来删除
+                for item in self.files {
+                    if item.fileSubType == .eBook {
+                        let file:TGFileModel = item as! TGFileModel;
+                        //删除epub缓存文件
+                        file.toDeleteEbookConfigFile()
+                    }
+                }
+
+                //删除本文件夹
+                 super.toDelete(completion)
+    }
     //是否需要同步一下文件夹再进行删除
     func toDelete(_ isNeedSynchronize:Bool, _ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void){
         if isNeedSynchronize == false {
