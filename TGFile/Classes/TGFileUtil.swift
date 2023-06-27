@@ -32,7 +32,7 @@ public extension URL{
 public class TGFileUtil: NSObject {
     
     //沙盒路径
-    class func getSandboxUrl()->URL{
+    public class func getSandboxUrl()->URL{
         return URL.init(fileURLWithPath: NSHomeDirectory())
     }
     //获取document目录的路径
@@ -143,7 +143,7 @@ public class TGFileUtil: NSObject {
         return freesize
     }
     
-    class func convetByteToFormatString(_ bytes:Int64) -> String{
+   public class func convetByteToFormatString(_ bytes:Int64) -> String{
         if bytes > 1024*1024*1024 {
             //GB
             return "\(bytes/1024/1024/1024)GB"
@@ -156,7 +156,7 @@ public class TGFileUtil: NSObject {
     }
     
     //获取文件大小
-    class  func fetchSize(url: URL)->UInt64
+   public class  func fetchSize(url: URL)->UInt64
     {
         var fileSize : UInt64 = 0
         do {
@@ -171,21 +171,21 @@ public class TGFileUtil: NSObject {
     }
     
     //判断文件和文件夹是否存在
-    class func jugeFileIsExist(filePath:String) -> Bool{
+    public    class func jugeFileIsExist(filePath:String) -> Bool{
         let fileManager = FileManager.default
         //        let filePath:String = NSHomeDirectory() + "/Documents/hangge.txt"
         let exist = fileManager.fileExists(atPath: filePath)
         return exist;
     }
     //判断是否是目录
-    class func jugeIsDirectory(_ path:String) -> Bool{
+    public class func jugeIsDirectory(_ path:String) -> Bool{
         var directoryExists = ObjCBool.init(false)
         let fileExists = FileManager.default.fileExists(atPath: path, isDirectory: &directoryExists)
         return fileExists && directoryExists.boolValue
     }
     
     //创建文件夹
-    class func createFolder(folderPath:String) -> Bool{
+    public class func createFolder(folderPath:String) -> Bool{
         //        let myDirectory:String = NSHomeDirectory() + "/Documents/myFolder/Files"
         let fileManager = FileManager.default
         //withIntermediateDirectories为ture表示路径中间如果有不存在的文件夹都会创建
@@ -202,7 +202,7 @@ public class TGFileUtil: NSObject {
         return true;
     }
     //在基路径下面追加一个文件夹--如果已存在使用已存在的
-    class func createFolder(name:String,baseUrl:NSURL) -> Bool{
+    public class func createFolder(name:String,baseUrl:NSURL) -> Bool{
         let manager = FileManager.default
         let folder = baseUrl.appendingPathComponent(name, isDirectory: true)
         let exist = manager.fileExists(atPath: folder!.path)
@@ -221,7 +221,7 @@ public class TGFileUtil: NSObject {
     //保存
     //字符串、数组、字典可以直接使用write方法写入
     //try! info.write(toFile: filePath, atomically: true, encoding: String.Encoding.utf8)
-    class func saveFile(data:Data,filePath:String) -> Bool {
+    public class func saveFile(data:Data,filePath:String) -> Bool {
         do {
             try data.write(to: URL(fileURLWithPath: filePath))
         } catch let e {
@@ -231,7 +231,7 @@ public class TGFileUtil: NSObject {
         return true;
     }
     
-    class func fetchDataBy(filePath:String) -> Data?{
+    public class func fetchDataBy(filePath:String) -> Data?{
         let url:URL? = URL.init(string: filePath);
         if url == nil {
             LLog(TAG: TAG(self), "path is error.!!");
@@ -250,7 +250,7 @@ public class TGFileUtil: NSObject {
     }
     
     //覆盖复制文件
-    class func copyAndOverwrite(srcPath:String,toPath:String)  -> Bool{
+    public class func copyAndOverwrite(srcPath:String,toPath:String)  -> Bool{
         if self.jugeFileIsExist(filePath: toPath) {
             //已存在--先删除
           let _ =  self.deleteFileOrFolder(srcPath: toPath)
@@ -266,7 +266,7 @@ public class TGFileUtil: NSObject {
         return true;
     }
     //普通复制
-    class func copyFile(srcPath:String,toPath:String) -> Bool{
+    public class func copyFile(srcPath:String,toPath:String) -> Bool{
         let fileManager = FileManager.default
         do {
             try fileManager.copyItem(atPath: srcPath, toPath: toPath)
@@ -278,7 +278,7 @@ public class TGFileUtil: NSObject {
     }
     
     //移动文件/改名
-    class func moveFile(srcPath:String,toPath:String) -> (result:Bool,msg:String){
+    public class func moveFile(srcPath:String,toPath:String) -> (result:Bool,msg:String){
         if self.jugeFileIsExist(filePath: toPath) == true {
             //已存在--先进行删除
             let _ = self.deleteFileOrFolder(srcPath: toPath)
@@ -294,7 +294,7 @@ public class TGFileUtil: NSObject {
         return (true,"");
     }
     
-    class  func modifyFileName(srcPath:String,newName:String) ->Bool {
+    public class  func modifyFileName(srcPath:String,newName:String) ->Bool {
         let fileManager = FileManager.default
         do {
             var url:URL? = URL.init(string: srcPath);
@@ -312,7 +312,7 @@ public class TGFileUtil: NSObject {
         return true;
     }
     //文件名+后缀
-    class func getFileNameAndSuffix(path:String) -> String?{
+    public class func getFileNameAndSuffix(path:String) -> String?{
         
         let url:URL? = URL.init(fileURLWithPath: path)
         //URL.init(string: path);
@@ -328,7 +328,7 @@ public class TGFileUtil: NSObject {
         return  temp ;
     }
     
-    class func getFileSuffix(path:String) -> String?{
+    public class func getFileSuffix(path:String) -> String?{
         let lastPath = self.getFileNameAndSuffix(path: path);
         if lastPath == nil {
             return nil;
@@ -342,7 +342,7 @@ public class TGFileUtil: NSObject {
     }
     
     //删除文件或者文件夹
-    class func deleteFileOrFolder(srcPath:String) -> Bool {
+    public class func deleteFileOrFolder(srcPath:String) -> Bool {
         let fileManager = FileManager.default
         do {
             try fileManager.removeItem(atPath: srcPath)
@@ -355,7 +355,7 @@ public class TGFileUtil: NSObject {
     }
     
     //获取文件相关属性 创建时间，修改时间，文件大小，文件类型等信息
-    class func getFileAttributeDic(path:String) -> Dictionary<FileAttributeKey, Any>?{
+    public  class func getFileAttributeDic(path:String) -> Dictionary<FileAttributeKey, Any>?{
         let manager = FileManager.default
         //        let urlForDocument = manager.urls(for: .documentDirectory, in:.userDomainMask)
         //        let docPath = urlForDocument[0]
@@ -378,7 +378,7 @@ public class TGFileUtil: NSObject {
     }
     
     //获取文件夹下的所有文件
-    class func getContentsOfFolder(folderPath:String) -> [String]{
+    public  class func getContentsOfFolder(folderPath:String) -> [String]{
         let manager = FileManager.default
         var fileNames:[String] = [];
         do {
@@ -391,7 +391,7 @@ public class TGFileUtil: NSObject {
     }
     
     ///获取文件夹下所有文件的相对路径包括子目录的文件
-    class func fetchAllFilsRelativePathOfFolder(folderPath:String) -> [String]{
+    public class func fetchAllFilsRelativePathOfFolder(folderPath:String) -> [String]{
         var datas:[String] = []
         let manager = FileManager.default
         let directoryEnumerator = manager.enumerator(atPath: folderPath)
@@ -447,8 +447,8 @@ public class TGFileUtil: NSObject {
         return MIMEType as String?
     }
     
-    typealias TGFBlock = (_ result: Any) -> Void
-    class func fetchMimeType(_ path: String?, completion:@escaping TGFBlock) {
+    public typealias TGFBlock = (_ result: Any) -> Void
+    public class func fetchMimeType(_ path: String?, completion:@escaping TGFBlock) {
         let defaultMime = "application/octet-stream";
         if !FileManager().fileExists(atPath: path ?? "") {
             LLog(TAG: TAG(self), "not find file.!!");
@@ -481,7 +481,7 @@ public class TGFileUtil: NSObject {
     }
     
     //异步方式获取mimetype
-    class func asyGetMimeType(_ path: String?,completion:@escaping (_ mime:String) -> Void) {
+    public class func asyGetMimeType(_ path: String?,completion:@escaping (_ mime:String) -> Void) {
         // 创建URL
         let url = URL(fileURLWithPath: path ?? "")
         // 创建请求对象
@@ -497,7 +497,7 @@ public class TGFileUtil: NSObject {
         }
     }
     //默认aes 加密的
-   class  func compressZip(folderPath:String,destPath:String) -> Bool {
+    public class  func compressZip(folderPath:String,destPath:String) -> Bool {
         if TGFileUtil.jugeFileIsExist(filePath: folderPath) == false {
             return false;
         }
@@ -512,7 +512,7 @@ public class TGFileUtil: NSObject {
     
     // MARK: 解压相关
     //statuss 0 - 失败 1-成功 2-正在解压
-    class func decompressFile(_ vc:TGBaseVC,_ fileModel:TGFileModel,_ completion:@escaping ((_ statuss:Int,_ code:Int,_ msg:String,_ progress:Float)->Void)) -> Void {
+    public class func decompressFile(_ vc:TGBaseVC,_ fileModel:TGFileModel,_ completion:@escaping ((_ statuss:Int,_ code:Int,_ msg:String,_ progress:Float)->Void)) -> Void {
         //mustBeUsedInApp
         let zipPath:String = fileModel.getUrl().path
         let unarchive = SARUnArchiveANY.init(path: zipPath)
@@ -553,7 +553,7 @@ public class TGFileUtil: NSObject {
         unarchive?.decompress();
     }
     //弹出输入密码再解压
-    class func decompressWithInputPaasword2(_ vc:TGBaseVC, _ path:String,_ completion:@escaping ((_ statuss:Int,_ code:Int,_ msg:String,_ progress:Float)->Void)) -> Void {
+    public class func decompressWithInputPaasword2(_ vc:TGBaseVC, _ path:String,_ completion:@escaping ((_ statuss:Int,_ code:Int,_ msg:String,_ progress:Float)->Void)) -> Void {
         //弹出弹框让用输入
         vc.showAlertDecompressInputPassword { isSure, password in
             if isSure {
@@ -567,7 +567,7 @@ public class TGFileUtil: NSObject {
         }
     }
     
-    class func decompressWithPassword3(_ path:String,_ password:String,_ completion:@escaping ((_ statuss:Int,_ code:Int,_ msg:String,_ progress:Float)->Void)) -> Void {
+    public class func decompressWithPassword3(_ path:String,_ password:String,_ completion:@escaping ((_ statuss:Int,_ code:Int,_ msg:String,_ progress:Float)->Void)) -> Void {
         let unarchive = SARUnArchiveANY.init(path: path)
         if SARUnArchiveANY.hasPaasword(for: path) {
             //有密码--尝试一次默认密码

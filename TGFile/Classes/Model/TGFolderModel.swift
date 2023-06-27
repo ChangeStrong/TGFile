@@ -13,29 +13,29 @@ import TGSPublic
 
 public class TGFolderModel: TGFileBaseModel {
     //描述文件名和后缀
-    static  let profileNameAndSuff:String = ".TGFolderProfile";
+    public static  let profileNameAndSuff:String = ".TGFolderProfile";
     //文件夹缩略图
-    static let coverNameAndSuff:String = "TGCoverOfFolder.jpeg";
-    static let rubshFiles:[String] = ["__MACOSX","Inbox"];
+    public static let coverNameAndSuff:String = "TGCoverOfFolder.jpeg";
+    public static let rubshFiles:[String] = ["__MACOSX","Inbox"];
     //音乐附属文件夹前缀
-    static let musicPackagePrefix:String = ".TGMP_";
+    public static let musicPackagePrefix:String = ".TGMP_";
     //16位压缩密码
-    static let passwordForCompressOrDepress:String = "Yeast277821200";
+    public static let passwordForCompressOrDepress:String = "Yeast277821200";
     //*通知相关
-    static let kNotiChangeCoverOfFolder:String = "kNotiChangeCoverOfFolder";
+    public static let kNotiChangeCoverOfFolder:String = "kNotiChangeCoverOfFolder";
     //*end
     //描述文件版本号
-    let profileVersion:Float = 1.0;
+    public let profileVersion:Float = 1.0;
     //跟描述文件同在
-    var uniqueId:String?
+    public var uniqueId:String?
     //目录下所有文件
-    var files:[TGFileBaseModel] = []
+    public var files:[TGFileBaseModel] = []
     
     //**用户配置属性
     ///缩略图文件位置(相对于文件夹的位置)
-    var thumnailRelativePath:String?
+    public var thumnailRelativePath:String?
     ///观看模式
-    enum WatchModel:Int,HandyJSONEnum {
+    public enum WatchModel:Int,HandyJSONEnum {
     case defaultIntellect //默认智能
     case file //以文件形式显示
     case album //相册
@@ -47,59 +47,59 @@ public class TGFolderModel: TGFileBaseModel {
     case web //网页
     }
     
-    var watchModel:WatchModel = .defaultIntellect //给用户设置
-    var guessWatchModel:WatchModel = .file //智能判断
+    public var watchModel:WatchModel = .defaultIntellect //给用户设置
+    public var guessWatchModel:WatchModel = .file //智能判断
     //每个分类文件的数量
-    var numberOfFilesPerCategoryDict:[TGFileType:Int] = [:]
+    public var numberOfFilesPerCategoryDict:[TGFileType:Int] = [:]
 
     
-    enum SortType:Int,HandyJSONEnum {
+    public enum SortType:Int,HandyJSONEnum {
     case createTime = 0 //创建时间降序
     case fileName = 10 //文件名
     case custom  = 20 //自定义的顺序
     }
     ///是否是降序
-    var isDescendingOrder:Bool = false
+    public var isDescendingOrder:Bool = false
     ///排序方式
-    var sortType:SortType = .fileName{
+    public var sortType:SortType = .fileName{
         didSet{
             //重新排序
             self.updateFilesSort()
         }
     }
     //是否需要手势解锁密码
-    var isNeedGesturePassword:Bool = false;
+    public var isNeedGesturePassword:Bool = false;
     //是否允许导出
-    var allowExport:Bool = true;
+    public var allowExport:Bool = true;
     //音乐是否显示频谱
-    var audioIsShowSpectrum:Bool = false;
+    public var audioIsShowSpectrum:Bool = false;
     
     //***音乐相关配置
-    enum MusicalPlayModel:Int,HandyJSONEnum {
+    public enum MusicalPlayModel:Int,HandyJSONEnum {
     case sequential
     case random
     case singleCirculation
     
     }
     ///音乐播放模式
-    var musicalPlayModel:MusicalPlayModel = .sequential
+    public var musicalPlayModel:MusicalPlayModel = .sequential
     
     //***end
     
     
     //**漫画相关临时属性--不需要保存到本地的属性
     //下一章
-    var forwarkFolder:TGFolderModel?
+    public var forwarkFolder:TGFolderModel?
     //上一章
-    var backwarkFolder:TGFolderModel?
+    public var backwarkFolder:TGFolderModel?
     //漫画类型的子文件夹
-    var subfoldersOfComicType:[TGFolderModel]?
+    public var subfoldersOfComicType:[TGFolderModel]?
     
     
     //**end
     
     //对内部文件进行排序
-    func updateFilesSort() -> Void {
+    public func updateFilesSort() -> Void {
         if self.sortType == .createTime {
             //根据创建日期
             self.files =  self.files.sorted { item1, item2 in
@@ -153,7 +153,7 @@ public class TGFolderModel: TGFileBaseModel {
         }
     }
     //从新给每个文件设置序号
-    func initSortIndex() -> Void {
+    public func initSortIndex() -> Void {
         var isUnSetting:Bool = true;
         for item in self.files {
             if item.sortIndex != 0 {
@@ -181,7 +181,7 @@ public class TGFolderModel: TGFileBaseModel {
         self.syncProfileFile()
     }
     
-    init(relativePath:String?,isNeedCreat:Bool) {
+    public init(relativePath:String?,isNeedCreat:Bool) {
         super.init(relativePath: relativePath)
         self.fileType = .folder;
         if isNeedCreat {
@@ -293,7 +293,7 @@ public class TGFolderModel: TGFileBaseModel {
                 
         }
     
-    func getProfileUrl() -> URL {
+    public func getProfileUrl() -> URL {
         let url:URL = self.getUrl().appendingPathComponent(TGFolderModel.profileNameAndSuff)
         return url;
     }
@@ -304,7 +304,7 @@ public class TGFolderModel: TGFileBaseModel {
     
     // MARK: 描述文件相关
     ///创建本地文件夹
-    func createLocalFolder() -> Void {
+    public func createLocalFolder() -> Void {
         if self.relativePath == nil {
             LLog(TAG: TAG(self), "path is nil !!");
             return;
@@ -326,12 +326,12 @@ public class TGFolderModel: TGFileBaseModel {
         }
     }
     ///是否仍然存在
-    func isLocalExist() -> Bool {
+    public func isLocalExist() -> Bool {
       return TGFileUtil.jugeFileIsExist(filePath: self.getUrl().path)
     }
     
     ///创建本地描述文件
-    func syncProfileFile(){
+    public func syncProfileFile(){
         //先判断此文件夹是否存在
         if self.isLocalExist() == false {
             LLog(TAG: TAG(self), "local folder isn't exist.!");
@@ -353,7 +353,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     
     //创建配置文件
-    func createProfileFile() -> Void {
+    public func createProfileFile() -> Void {
         //给配置文件打上唯一标识--用于在成品区判断文件是否存在
         self.uniqueId = "ios"+String(Date.fetchCurrentSeconds())+self.getFileName()
         files.removeAll();//清空
@@ -377,7 +377,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     //更新配置文件
     //将本地配置文件+子文件很多时 加载进来耗时1.2秒在读取json文件的时候
-    func requestLoadProfileToCache() -> Void {
+    public func requestLoadProfileToCache() -> Void {
         if TGFileUtil.jugeFileIsExist(filePath: getProfileUrl().path) == false {
             LLog(TAG: TAG(self), "Not find profile file.!!");
             return
@@ -449,16 +449,16 @@ public class TGFolderModel: TGFileBaseModel {
         
     }
     // TODO: 装载子文件
-    enum LoadStatus:Int,HandyJSONEnum {
+    public enum LoadStatus:Int,HandyJSONEnum {
     case unknow
     case loadIng
     case finished
     case failture
     }
-    typealias LoadBlock = (_ status:LoadStatus,_ file:TGFileBaseModel?) -> Void
-    var loadsBlock:[LoadBlock] = []
-    var currentSyncFilesStep:Int = 0
-    func requestAsyncLoadFiles(_ completion:@escaping LoadBlock) -> Void {
+    public typealias LoadBlock = (_ status:LoadStatus,_ file:TGFileBaseModel?) -> Void
+    public var loadsBlock:[LoadBlock] = []
+    public var currentSyncFilesStep:Int = 0
+    public func requestAsyncLoadFiles(_ completion:@escaping LoadBlock) -> Void {
         currentSyncFilesStep += 1;
         if self.relativePath == nil {
             LLog(TAG: TAG(self), "path is nil. !!");
@@ -532,7 +532,7 @@ public class TGFolderModel: TGFileBaseModel {
     
     
     // TODO: 同步装载
-    func requestSyncFiles() -> Void {
+    public func requestSyncFiles() -> Void {
         if self.relativePath == nil {
             LLog(TAG: TAG(self), "path is nil. !!");
             return
@@ -571,7 +571,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     
     //同步描述文件到本地
-    func syncProfileToLocal() -> Void {
+    public func syncProfileToLocal() -> Void {
 //        var jsonDict = self.toJSON()
 //        jsonDict!.removeValue(forKey: "delegete")
 //        LLog(TAG: TAG(self), "jsonDict=\(jsonDict)");
@@ -602,7 +602,7 @@ public class TGFolderModel: TGFileBaseModel {
     // MARK: 操作
     
     ///根据文件路径添加文件
-    func addFileBy(fileName:String,oldFilesDicts:[String:TGFileBaseModel]) -> TGFileBaseModel? {
+    public func addFileBy(fileName:String,oldFilesDicts:[String:TGFileBaseModel]) -> TGFileBaseModel? {
         
         //忽略隐藏文件.开头的
         if fileName.hasPrefix(".") {
@@ -672,7 +672,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     
     ///改名
-    func renameFile(_ nameText:String) -> (msg:String,isSuccess:Bool) {
+    public func renameFile(_ nameText:String) -> (msg:String,isSuccess:Bool) {
         let srcPath:String = self.getUrl().path;
         let destingStr0 = srcPath.removeLastComponent2()
         if destingStr0 ==  nil{
@@ -708,7 +708,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     
     ///移动到制定位置
-    func moveFileTo(_ otherFolder:TGFolderModel) -> (msg:String,isSuccess:Bool) {
+    public func moveFileTo(_ otherFolder:TGFolderModel) -> (msg:String,isSuccess:Bool) {
         let srcPath:String = self.getUrl().path;
         
         let destingUrl:String = otherFolder.getUrl().appendingPathComponent(self.fileNameAndSuffix).path;
@@ -731,7 +731,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     
     ///替换封面
-    func replaceThumnail(img:UIImage?) -> Void {
+    public func replaceThumnail(img:UIImage?) -> Void {
         //删除之前的封面
         if self.thumnailRelativePath != nil {
             let url = self.getUrl().appendingPathComponent(self.thumnailRelativePath!)
@@ -765,7 +765,7 @@ public class TGFolderModel: TGFileBaseModel {
         NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: TGFolderModel.kNotiChangeCoverOfFolder), object: self.getUrl().path)
     }
     
-    override func toDelete(_ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void) {
+    public override func toDelete(_ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void) {
                 //将所有的电子书文件名字记录--用来删除
                 for item in self.files {
                     if item.fileSubType == .eBook {
@@ -779,7 +779,7 @@ public class TGFolderModel: TGFileBaseModel {
                  super.toDelete(completion)
     }
     //是否需要同步一下文件夹再进行删除
-    func toDelete(_ isNeedSynchronize:Bool, _ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void){
+    public func toDelete(_ isNeedSynchronize:Bool, _ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void){
         if isNeedSynchronize == false {
             super.toDelete(completion)
         }else{
@@ -796,14 +796,14 @@ public class TGFolderModel: TGFileBaseModel {
        
     }
     // MARK: 类型相关
-    func cleanCategoryDict() -> Void {
+    public  func cleanCategoryDict() -> Void {
         //清零
         self.numberOfFilesPerCategoryDict.removeAll()
 //        for key in self.numberOfFilesPerCategoryDict.keys {
 //            self.numberOfFilesPerCategoryDict[key] = 0
 //        }
     }
-    func fetchCategoryDict() -> [TGFileType:Int] {
+    public func fetchCategoryDict() -> [TGFileType:Int] {
         var dict = self.numberOfFilesPerCategoryDict;
         let blackList:[TGFileType]=[TGFileType.folder]
         dict = dict.filter { item in
@@ -814,14 +814,14 @@ public class TGFolderModel: TGFileBaseModel {
         return dict
     }
     //各类型个数
-    func setNumberOfPerCategory(_ fileType:TGFileType,_ number:Int) -> Void {
+    public func setNumberOfPerCategory(_ fileType:TGFileType,_ number:Int) -> Void {
         self.numberOfFilesPerCategoryDict[fileType] = number;
     }
-    func getNumberOfPerCategory(_ fileType:TGFileType) -> Int {
+    public func getNumberOfPerCategory(_ fileType:TGFileType) -> Int {
         let temp:Int = self.numberOfFilesPerCategoryDict[fileType] ?? 0
        return temp
     }
-    func addOneForCategory(_ fileType:TGFileType) -> Void {
+    public func addOneForCategory(_ fileType:TGFileType) -> Void {
         let temp:Int = self.numberOfFilesPerCategoryDict[fileType] ?? 0
         self.numberOfFilesPerCategoryDict[fileType] = temp + 1;
     }
@@ -875,10 +875,10 @@ public class TGFolderModel: TGFileBaseModel {
     
     // MARK: 观看模式
     ///获取观看模式
-    func getWatchModelName() -> String {
+    public func getWatchModelName() -> String {
         return TGFolderModel.fetchWatchModelNameBy(self.watchModel)
     }
-    class func fetchWatchModelNameBy(_ temp:WatchModel) -> String {
+    public class func fetchWatchModelNameBy(_ temp:WatchModel) -> String {
         switch temp {
         case .album:
             return LocalString("Album");
@@ -901,7 +901,7 @@ public class TGFolderModel: TGFileBaseModel {
         }
     }
     
-    class func fetchGuessFileTypeName(_ temp:WatchModel) ->String{
+    public class func fetchGuessFileTypeName(_ temp:WatchModel) ->String{
         switch temp {
         case .album:
             return LocalString("Picture");
@@ -924,7 +924,7 @@ public class TGFolderModel: TGFileBaseModel {
         }
     }
     ///猜测观看模式---优化时间
-    func jugementFolderContentType() -> WatchModel {
+    public func jugementFolderContentType() -> WatchModel {
         //由于同步json比较费时间--此处判断使用系统的属性
         if self.watchModel == .file {
             //是用户手动设置的文件系统模式
@@ -1012,7 +1012,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     
     ///改变观看模式
-    func changeFolderType(_ temp:WatchModel,_ completion:@escaping (_ isFinished:Bool) -> Void ) -> Void {
+    public func changeFolderType(_ temp:WatchModel,_ completion:@escaping (_ isFinished:Bool) -> Void ) -> Void {
         //先把模式改了
         self.watchModel = temp;
         self.requestAsyncLoadFiles { status, file in
@@ -1039,7 +1039,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     
     // MARK: 其它
-    func fetchThumnailUrl() -> URL? {
+    public func fetchThumnailUrl() -> URL? {
         //直接找本地是否存在此文件
         let url0 = self.getUrl().appendingPathComponent(TGFolderModel.coverNameAndSuff)
         if TGFileUtil.jugeFileIsExist(filePath: url0.path) == true {
@@ -1059,7 +1059,7 @@ public class TGFolderModel: TGFileBaseModel {
     }
     
     //获取所有子文件夹
-func fetchAllComicSubFolder() -> [TGFolderModel] {
+    public func fetchAllComicSubFolder() -> [TGFolderModel] {
     if subfoldersOfComicType != nil {
         //已经获取过一次了 无需重复获取
         return subfoldersOfComicType!
@@ -1110,7 +1110,7 @@ func fetchAllComicSubFolder() -> [TGFolderModel] {
         return backwardFolder;
     }*/
     //此时self一定是父文件夹 获取上一话文件夹
-    func fetchComicBackwarkFolderBy(_ subItem:TGFolderModel) -> TGFolderModel? {
+     public func fetchComicBackwarkFolderBy(_ subItem:TGFolderModel) -> TGFolderModel? {
         if subItem.backwarkFolder != nil {
             //已经查过一次了无需重新查找
             return subItem.backwarkFolder
@@ -1164,7 +1164,7 @@ func fetchAllComicSubFolder() -> [TGFolderModel] {
     }*/
     
     //此时self一定是父文件夹 获取下一话文件夹
-    func fetchComicForwarkFolderBy(_ subItem:TGFolderModel) -> TGFolderModel?{
+     public func fetchComicForwarkFolderBy(_ subItem:TGFolderModel) -> TGFolderModel?{
         if subItem.forwarkFolder != nil {
             //已经查过一次了无需重新查找
             return subItem.forwarkFolder
@@ -1188,7 +1188,7 @@ func fetchAllComicSubFolder() -> [TGFolderModel] {
     }
     
     
-    func getSortNameStr() -> String{
+    public func getSortNameStr() -> String{
         var name = "unknow"
         switch self.sortType {
         case .createTime:
@@ -1206,7 +1206,7 @@ func fetchAllComicSubFolder() -> [TGFolderModel] {
         return name;
     }
     //获取所有文件的文件名
-    func getFilesName() -> [String] {
+    public func getFilesName() -> [String] {
         var oldFileNames:[String] = [];
         for item in self.files {
             oldFileNames.append(item.fileNameAndSuffix)
@@ -1217,7 +1217,7 @@ func fetchAllComicSubFolder() -> [TGFolderModel] {
     
     // TODO: 发布相关
     
-    func checkIsCanRelease(_ completion:@escaping (_ isCan:Bool,_ msg:String) -> Void) {
+    public func checkIsCanRelease(_ completion:@escaping (_ isCan:Bool,_ msg:String) -> Void) {
         
         DispatchQueue.global().async {
             self.syncCountTheNumberTypesOfFiles();
@@ -1247,7 +1247,7 @@ func fetchAllComicSubFolder() -> [TGFolderModel] {
     }
     
     //同步计算
-    func syncCountTheNumberTypesOfFiles() {
+    public  func syncCountTheNumberTypesOfFiles() {
         //同步一下文件
         self.requestSyncFiles()
         for item in self.files {
@@ -1269,11 +1269,11 @@ func fetchAllComicSubFolder() -> [TGFolderModel] {
     
     
     // MARK: 压缩相关
-    func fetchCompressZip() -> TGFileModel? {
+    public func fetchCompressZip() -> TGFileModel? {
         self.fetchCompressZip(TGFolderModel.passwordForCompressOrDepress)
     }
     
-    func fetchCompressZip(_ password:String?) -> TGFileModel? {
+    public func fetchCompressZip(_ password:String?) -> TGFileModel? {
         let path0 = self.getUrl().path.removeLastComponent2()
         if path0 == nil {
             LLog(TAG: TAG(self), "path is error.!!");
@@ -1295,7 +1295,7 @@ func fetchAllComicSubFolder() -> [TGFolderModel] {
     }
     
     //删除已压缩的zip文件
-    func deleteCompressedZipFile() -> Void {
+    public func deleteCompressedZipFile() -> Void {
         let path0 = self.getUrl().path.removeLastComponent2()
         if path0 == nil {
             LLog(TAG: TAG(self), "path is error.!!");

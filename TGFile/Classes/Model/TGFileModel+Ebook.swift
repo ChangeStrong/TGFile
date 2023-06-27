@@ -19,7 +19,7 @@ extension TGFileModel{
         
     }
     func toDeleteEpubCache() -> Void {
-        let srcPath = TGFileManager.instance.ePubDecompressFolder.getUrl().appendingPathComponent(self.fileNameAndSuffix).path
+        let srcPath = TGFileManager.share.ePubDecompressFolder.getUrl().appendingPathComponent(self.fileNameAndSuffix).path
         if TGFileUtil.jugeFileIsExist(filePath: srcPath){
             let _ = TGFileUtil.deleteFileOrFolder(srcPath: srcPath)
         }

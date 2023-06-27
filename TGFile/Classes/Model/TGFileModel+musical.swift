@@ -8,7 +8,7 @@
 import UIKit
 import TGSPublic
 
-extension TGFileModel{
+public extension TGFileModel{
     
     // MARK: 音乐相关
     func fetchMusicalPackageDirectory() -> TGFolderModel? {

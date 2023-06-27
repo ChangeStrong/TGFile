@@ -8,7 +8,7 @@
 import Foundation
 import TGSPublic
 
-extension TGFolderModel{
+public extension TGFolderModel{
     ///判断是否是音乐包
     func jugementIsMusicalPackage() -> Bool {
         if self.fileNameAndSuffix.hasPrefix(TGFolderModel.musicPackagePrefix) {

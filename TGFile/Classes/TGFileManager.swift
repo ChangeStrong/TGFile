@@ -14,7 +14,7 @@ public class TGFileManager: NSObject {
     public static let kFileOfLrcDidMoveNotification:String = "kFileOfLrcDidMoveNotification";
     // MARK: 公有属性
     var legalMimeTypes:[String] = ["image/png","image/jpeg"];
-    static let instance = TGFileManager()
+    public static let share = TGFileManager()
     override init() {
         super.init()
 //        createHomeFolder()

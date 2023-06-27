@@ -14,17 +14,17 @@ import TGSPublic
 
 public class TGFileModel: TGFileBaseModel {
     //音乐封面
-    static let coverNameAndSuffixOfMusical:String = "TGCoverOfMusical.jpeg";
+    public static let coverNameAndSuffixOfMusical:String = "TGCoverOfMusical.jpeg";
     
-    var mimeType:String?
+    public var mimeType:String?
     //根据音乐包内的文件--判断当前显示类型
-    enum TGBackgroundType:Int,HandyJSONEnum {
+    public enum TGBackgroundType:Int,HandyJSONEnum {
     case none = 0
     case video
     case picture
     }
     
-    override init(relativePath:String?){
+    public override init(relativePath:String?){
         super.init(relativePath:relativePath);
             self.relativePath = relativePath;
         if relativePath == nil {
@@ -60,7 +60,7 @@ public class TGFileModel: TGFileBaseModel {
     
     
     
-    func updateFileType(_ mime:String){
+    public  func updateFileType(_ mime:String){
         let suffix:String? = TGFileUtil.getFileSuffix(path: self.getUrl().path)
         mimeType = mime;
 //        LLog(TAG: TAG(self), "mimeType=\(mimeType)");
@@ -122,7 +122,7 @@ public class TGFileModel: TGFileBaseModel {
     // MARK: 操作
     
     //改名
-    func renameFile(_ nameText:String) -> (msg:String,isSuccess:Bool) {
+    public func renameFile(_ nameText:String) -> (msg:String,isSuccess:Bool) {
         let srcPath:String = self.getUrl().path;
         let destingStr0 = srcPath.removeLastComponent2()
         if destingStr0 ==  nil{
@@ -156,7 +156,7 @@ public class TGFileModel: TGFileBaseModel {
     }
     
     ///移动到制定位置
-    func moveFileTo(_ otherFolder:TGFolderModel) -> (msg:String,isSuccess:Bool) {
+    public func moveFileTo(_ otherFolder:TGFolderModel) -> (msg:String,isSuccess:Bool) {
         let srcPath:String = self.getUrl().path;
         
         let destingUrl:String = otherFolder.getUrl().appendingPathComponent(self.fileNameAndSuffix).path;
@@ -180,7 +180,7 @@ public class TGFileModel: TGFileBaseModel {
     }
     
     ///移动文件并改名
-    func moveFileAndModifyName(_ otherFolder:TGFolderModel,_ nameAndSuffix:String) -> (msg:String,isSuccess:Bool) {
+    public func moveFileAndModifyName(_ otherFolder:TGFolderModel,_ nameAndSuffix:String) -> (msg:String,isSuccess:Bool) {
         let srcPath:String = self.getUrl().path;
         
         let destingUrl:String = otherFolder.getUrl().appendingPathComponent(nameAndSuffix).path;
@@ -198,7 +198,8 @@ public class TGFileModel: TGFileBaseModel {
         }
         return ("",true)
     }
-    override func toDelete(_ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void) {
+    
+    public override func toDelete(_ completion:@escaping (_ msg: String, _ isSuccess: Bool) -> Void) {
        
         //判断是否是电子书--电子书删除对应解压文件
         if self.fileType == .articles && self.fileSubType == .eBook {

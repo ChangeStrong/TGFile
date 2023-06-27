@@ -11,14 +11,14 @@ public class TGFileLineIterator: Sequence, IteratorProtocol {
     
 //    typealias Element = String
     
-    let encoding: String.Encoding
-    let chunkSize: Int
-    let fileHandle: FileHandle
-    let delimPattern: Data
-    var buffer: Data
-    var isAtEOF: Bool = false
+    public let encoding: String.Encoding
+    public let chunkSize: Int
+    public let fileHandle: FileHandle
+    public let delimPattern: Data
+    public var buffer: Data
+    public var isAtEOF: Bool = false
     
-    init(url: URL, delimeter: String = "\n", encoding: String.Encoding = .utf8, chunkSize: Int = 4096) throws
+    public init(url: URL, delimeter: String = "\n", encoding: String.Encoding = .utf8, chunkSize: Int = 4096) throws
     {
         self.fileHandle = try FileHandle(forReadingFrom: url)
         self.chunkSize = chunkSize
@@ -64,9 +64,9 @@ public class TGFileLineIterator: Sequence, IteratorProtocol {
 }
 
 public class TGElement{
-    var line:String = "";
-    var length:Int = 0;
-    init(_ str:String,_ count:Int) {
+    public var line:String = "";
+    public var length:Int = 0;
+    public init(_ str:String,_ count:Int) {
         self.line = str;
         self.length = count;
     }
