@@ -1,0 +1,6 @@
+framework module TGSPublic {
+  umbrella header "TGSPublic-umbrella.h"
+
+  export *
+  module * { export * }
+}

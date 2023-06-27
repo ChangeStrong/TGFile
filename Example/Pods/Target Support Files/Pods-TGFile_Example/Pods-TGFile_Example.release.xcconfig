@@ -1,11 +1,11 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/TGFile"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire" "${PODS_CONFIGURATION_BUILD_DIR}/GRDB.swift" "${PODS_CONFIGURATION_BUILD_DIR}/HandyJSON" "${PODS_CONFIGURATION_BUILD_DIR}/LzmaSDK-ObjC" "${PODS_CONFIGURATION_BUILD_DIR}/Moya" "${PODS_CONFIGURATION_BUILD_DIR}/ProgressHUD" "${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa" "${PODS_CONFIGURATION_BUILD_DIR}/RxRelay" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift" "${PODS_CONFIGURATION_BUILD_DIR}/SSZipArchive" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit" "${PODS_CONFIGURATION_BUILD_DIR}/TGFile" "${PODS_CONFIGURATION_BUILD_DIR}/TGSPublic" "${PODS_CONFIGURATION_BUILD_DIR}/UnrarKit"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/TGFile/TGFile.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/GRDB.swift/GRDB.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/HandyJSON/HandyJSON.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/LzmaSDK-ObjC/LzmaSDK_ObjC.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Moya/Moya.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ProgressHUD/ProgressHUD.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa/RxCocoa.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxRelay/RxRelay.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift/RxSwift.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SSZipArchive/SSZipArchive.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/TGFile/TGFile.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/TGSPublic/TGSPublic.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/UnrarKit/UnrarKit.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) /usr/lib/swift '@executable_path/Frameworks' '@loader_path/Frameworks'
 LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" /usr/lib/swift
-OTHER_LDFLAGS = $(inherited) -framework "TGFile"
+OTHER_LDFLAGS = $(inherited) -l"c++" -l"iconv" -l"sqlite3" -l"z" -framework "Alamofire" -framework "CFNetwork" -framework "Foundation" -framework "GRDB" -framework "HandyJSON" -framework "LzmaSDK_ObjC" -framework "Moya" -framework "ProgressHUD" -framework "RxCocoa" -framework "RxRelay" -framework "RxSwift" -framework "SSZipArchive" -framework "Security" -framework "SnapKit" -framework "TGFile" -framework "TGSPublic" -framework "UnrarKit"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

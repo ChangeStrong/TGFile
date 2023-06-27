@@ -15,8 +15,24 @@
     "git": "https://github.com/ChangeStrong/TGFile.git",
     "tag": "0.1.0"
   },
+  "swift_versions": "5.0",
   "platforms": {
-    "ios": "10.0"
+    "ios": "13.0"
   },
-  "source_files": "TGFile/Classes/**/*"
+  "source_files": "TGFile/Classes/**/*.{h,m,mm,swift,c}",
+  "dependencies": {
+    "TGSPublic": [
+
+    ],
+    "SSZipArchive": [
+
+    ],
+    "UnrarKit": [
+
+    ],
+    "LzmaSDK-ObjC": [
+
+    ]
+  },
+  "swift_version": "5.0"
 }

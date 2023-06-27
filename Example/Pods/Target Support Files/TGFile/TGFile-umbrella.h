@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "SARUnArchiveANY.h"
 
 FOUNDATION_EXPORT double TGFileVersionNumber;
 FOUNDATION_EXPORT const unsigned char TGFileVersionString[];

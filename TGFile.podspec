@@ -27,10 +27,10 @@ TODO: Add long description of the pod here.
   s.author           = { 'ChangeStrong' => '491337430@qq.com' }
   s.source           = { :git => 'https://github.com/ChangeStrong/TGFile.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.swift_version           = '5.0'
+  s.ios.deployment_target = '13.0'
 
-  s.ios.deployment_target = '10.0'
-
-  s.source_files = 'TGFile/Classes/**/*'
+  s.source_files = 'TGFile/Classes/**/*.{h,m,mm,swift,c}'
   
   # s.resource_bundles = {
   #   'TGFile' => ['TGFile/Assets/*.png']
@@ -39,4 +39,10 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'TGSPublic'
+  s.dependency 'SSZipArchive'
+  s.dependency 'UnrarKit'
+  s.dependency 'LzmaSDK-ObjC'
+  
+  
 end
