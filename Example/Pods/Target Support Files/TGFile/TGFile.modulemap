@@ -1,0 +1,6 @@
+framework module TGFile {
+  umbrella header "TGFile-umbrella.h"
+
+  export *
+  module * { export * }
+}
